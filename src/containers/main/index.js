@@ -17,5 +17,10 @@ class Main extends Component {
 }
 
 const mapStateToProps = ({spotify}) => ({spotify})
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    ...stepperActions
+  }, dispatch)
+})
 
-export default connect(mapStateToProps, null)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
