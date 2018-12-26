@@ -38,16 +38,20 @@ const updateLogin = () => {
 }
 
 const getAlbunsById = (id) => {
-  return {
-    type: types.ALBUMNS_BY_ID,
-    payload: service.searchAlbumsById(id)
+  return dispatch => {
+    return dispatch ({
+      type: types.ALBUMNS_BY_ID,
+      payload: service.searchAlbumsById(id)
+    })
   }
 }
 
 const getTrackById = (id) => {
-  return {
-    type: types.TRACKS_BY_ID,
-    payload: service.searchTracking(id)
+  return dispatch => {
+    return dispatch({    
+      type: types.TRACKS_BY_ID,
+      payload: service.searchTracking(id)
+    })
   }
 }
 

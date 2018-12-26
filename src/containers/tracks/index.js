@@ -11,6 +11,7 @@ import Card from '../../components/cards_Track';
 
 const styles = theme => ({
   root: {
+    paddingTop: 10,
     paddingRight: 50,
     paddingLeft: 50,
     display:'absolute'
