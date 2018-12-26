@@ -51,7 +51,7 @@ const styles = theme => ({
   }
 });
 
-class RecipeReviewCard extends React.Component {
+class CardAlbum extends React.Component {
   state = { expanded: false };
 
   componentDidMount(){
@@ -141,8 +141,8 @@ class RecipeReviewCard extends React.Component {
   }
 }
 
-RecipeReviewCard.propTypes = {
+CardAlbum.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(RecipeReviewCard);
+export default withStyles(styles)(CardAlbum);

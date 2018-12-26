@@ -35,7 +35,7 @@ const styles = theme => ({
   },
 });
 
-class MediaControlCard extends React.Component {
+class CardTrack extends React.Component {
 
     storeFavoriteArtist = (id) => {
         const storaged = localStorage.getItem("favoriteArtist");
@@ -96,9 +96,9 @@ class MediaControlCard extends React.Component {
   }
 }
 
-MediaControlCard.propTypes = {
+CardTrack.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(MediaControlCard);
+export default withStyles(styles, { withTheme: true })(CardTrack);

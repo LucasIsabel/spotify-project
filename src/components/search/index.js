@@ -1,4 +1,5 @@
 import React, {Component, Fragment} from 'react';
+import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import {withRouter} from 'react-router-dom';
@@ -73,10 +74,10 @@ class SearchBar extends Component {
 
   onHandleClick = () => {
     if (this.state.search === '' || !this.state.search || this.state.select === '' || !this.state.select) {
-      this.setState(prev => ({ errorInput: true}))
+      this.setState({ errorInput: true})
       return
     }
-    this.setState(prev => ({ errorInput: false}))
+    this.setState({ errorInput: false})
     this
       .props
       .history
@@ -112,7 +113,9 @@ class SearchBar extends Component {
             <input
               name="search"
               className={classes.inputStyle}
-              onChange={(event) => this.optionHandler(event)}/>
+              onChange={(event) => this.optionHandler(event)}
+              placeholder={"Kendrick Lamar"}
+              />
           </Grid>
           <Grid item xs={12} md={2} className={classes.gridContainer}>
             <button className={classes.bottomStyle} onClick={this.onHandleClick}>
@@ -135,6 +138,11 @@ class SearchBar extends Component {
     )
   }
 }
+
+SearchBar.propTypes = {
+  classes: PropTypes.object.isRequired,
+  spotify: PropTypes.object.isRequired
+};
 
 const mapStateToProps = ({spotify}) => ({spotify})
 
