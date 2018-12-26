@@ -12,4 +12,11 @@ const searchArtist = (name) => {
   }
 }
 
-export {searchArtist}
+const updateLogin = () => {
+  return {
+    type: types.USER_LOGGED,
+    payload: true
+  }
+}
+
+export {searchArtist, updateLogin}

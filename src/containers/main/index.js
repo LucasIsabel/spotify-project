@@ -1,36 +1,41 @@
-import React, {Component, Fragment} from 'react';
-import {bindActionCreators} from 'redux';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import {bindActionCreators} from 'redux';
 import * as spotifyActions from '../../actions/spotifyAction';
+import {handleAuthentatication} from '../../helpers/functions';
+import {redirectIfNotLogged} from '../../helpers/functions';
 
 class Main extends Component {
 
   state = {}
 
   componentDidMount(){
-    this.props.actions.searchArtist('Lucas');
+    const { match, location } = this.props;
+    const token = localStorage.getItem('secure_token');
+    if (!token) {
+      handleAuthentatication(match, location);
+    }
+    redirectIfNotLogged(); 
   }
 
   render() {
+    const { isAuthorized } = this.props.spotify;
     return (
-      <Fragment>
+      <section>
         <div>
-          {
-            this.props.spotify.artists.map((value, key) => {
-              return <div key={key}>{value.name}</div>
-            })
-          }
+          {isAuthorized ? <div> What are you looing for </div> : <div> Please loggin </div>  } 
         </div>
-      </Fragment>
+      </section>
     )
   }
 }
 
-const mapStateToProps = ({spotify, auth}) => ({spotify, auth})
+const mapStateToProps = ({spotify}) => ({spotify})
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     ...spotifyActions
   }, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Main));
