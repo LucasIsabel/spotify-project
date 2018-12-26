@@ -34,4 +34,12 @@ export default class {
       }
     });
   }
+
+  async getTracks(name){
+    return this.axios(`/search?q=${name}&type=track`,  {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('secure_token')}`
+      }
+    });
+  }
 }

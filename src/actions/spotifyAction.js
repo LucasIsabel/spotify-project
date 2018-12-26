@@ -21,6 +21,15 @@ const searchAlbumns = (name) => {
   }
 }
 
+const searchTracks = (name) => {
+  return dispatch => {
+    return dispatch({
+      type: types.SEARCH_TRACKS,
+      payload: service.searchTracks(name)
+    })
+  }
+}
+
 const updateLogin = () => {
   return {
     type: types.USER_LOGGED,
@@ -49,4 +58,4 @@ const setFavoriteItem = (list) => {
   }
 }
 
-export {searchArtist, updateLogin, getAlbunsById, setFavoriteItem, searchAlbumns, getTrackById} 
+export {searchArtist, updateLogin, getAlbunsById, setFavoriteItem, searchAlbumns, getTrackById, searchTracks} 

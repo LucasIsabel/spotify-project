@@ -19,4 +19,8 @@ export default class {
     return this.axios.getTracksById(id)
   }
 
+  async searchTracks(name){
+    return this.axios.getTracks(name)
+  }
+
 }

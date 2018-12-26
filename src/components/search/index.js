@@ -65,7 +65,7 @@ class SearchBar extends Component {
                 <option value=""> &nbsp; </option>
                 <option value="artist">Artist</option>
                 <option value="albums">Album</option>
-                <option value="Track">Track</option>
+                <option value="tracks">Track</option>
               </select>
             </Grid>
             <Grid item xs={12} md={8} className={classes.gridContainer}>
