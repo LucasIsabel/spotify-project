@@ -26,4 +26,11 @@ const getAlbunsById = (id) => {
   }
 }
 
-export {searchArtist, updateLogin, getAlbunsById}
+const setFavoriteItem = (list) => {
+  return {
+    type: types.SET_FAVORITE,
+    payload: list
+  }
+}
+
+export {searchArtist, updateLogin, getAlbunsById, setFavoriteItem} 

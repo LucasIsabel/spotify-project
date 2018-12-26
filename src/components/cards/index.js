@@ -15,6 +15,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import red from '@material-ui/core/colors/red';
 
 const styles = theme => ({
   media: {
@@ -48,7 +49,7 @@ const styles = theme => ({
 });
 
 class RecipeReviewCard extends React.Component {
-  state = { expanded: false, artistAlbuns: [] };
+  state = { expanded: false };
 
   componentDidMount(){
     this.props.getAlbunsById(this.props.artistId);
@@ -57,6 +58,25 @@ class RecipeReviewCard extends React.Component {
   handleExpandClick = () => {
     this.setState(state => ({ expanded: !state.expanded }));
   };
+
+  storeFavoriteArtist = (id) => {
+    const storaged = localStorage.getItem("favoriteArtist");
+    if (!storaged) {
+      localStorage.setItem('favoriteArtist', JSON.stringify([{id}]));
+      this.props.setFavorite(JSON.parse(localStorage.getItem("favoriteArtist")));
+    } else {
+      let favArtist = JSON.parse(storaged);
+      if (!favArtist.some((artist) => artist.id === id)) {
+        favArtist = [...favArtist, {id}]
+        localStorage.setItem('favoriteArtist', JSON.stringify(favArtist));
+        this.props.setFavorite(favArtist);
+      } else {
+        favArtist = favArtist.filter(fav => fav.id !== id);
+        localStorage.setItem('favoriteArtist', JSON.stringify(favArtist));
+        this.props.setFavorite(favArtist);
+      }
+    }
+  }
 
   selectPopulariry = (popularity) => {
     const { color, text } = this.colorSelector(popularity);
@@ -86,6 +106,7 @@ class RecipeReviewCard extends React.Component {
 
     const { classes } = this.props;
     const albums = this.props.filteralbums(this.props.artistId).slice(0, 5);
+    const isFavorite = this.props.isFavorite(this.props.artistId);
 
     return (
       <Card className={classes.card}>
@@ -103,8 +124,8 @@ class RecipeReviewCard extends React.Component {
           </Typography>
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
-          <IconButton aria-label="Add to favorites">
-            <FavoriteIcon />
+          <IconButton aria-label="Add to favorites" onClick={() => this.storeFavoriteArtist(this.props.artistId)}>
+            {isFavorite ? <FavoriteIcon color={"error"} /> : <FavoriteIcon /> } 
           </IconButton>
           {
             this.selectPopulariry(this.props.popularity)

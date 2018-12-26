@@ -1,12 +1,14 @@
 import types from '../actions/types';
 import {updateState} from '../helpers/functions';
 
+const favoriteArtists = localStorage.getItem('favoriteArtist') ? JSON.parse(localStorage.getItem('favoriteArtist')) : []
+
 const initialState = {
   artists: [],
   artistsAlbuns:[],
   isAuthorized: false,
   authError: false,
-  
+  favoriteArtists
 }
 
 export default (state = initialState, action) => {
@@ -27,7 +29,11 @@ export default (state = initialState, action) => {
     case `${types.ALBUMNS_BY_ID}_FULFILLED`:
       {
         return updateState(state, {artistsAlbuns: [...state.artistsAlbuns, ...payload.data.items]})
-      }   
+      }
+    case `${types.SET_FAVORITE}`:
+      {
+        return updateState(state, {favoriteArtists: payload})
+      }      
     default:
       return state;
   }

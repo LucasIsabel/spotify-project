@@ -69,6 +69,11 @@ class Main extends Component {
     this.setState({ open: false });
   };
 
+  isFavorite = (id) => {
+    const { favoriteArtists } = this.props.spotify;
+    return favoriteArtists.some((fav) => fav.id === id)
+  }
+
   render() {
 
     const {classes} = this.props;
@@ -98,6 +103,8 @@ class Main extends Component {
                     popularity={value.popularity}
                     filteralbums={this.getAlbunsListFromId}
                     getAlbunsById={this.props.actions.getAlbunsById}
+                    setFavorite={this.props.actions.setFavoriteItem}
+                    isFavorite={this.isFavorite}
                   />
                 </Paper>
               </Grid>
