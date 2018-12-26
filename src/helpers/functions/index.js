@@ -30,11 +30,11 @@ export const hasToken = (props) => {
 
 export const redirectIfNotLogged = () => {
   if(!localStorage.getItem('secure_token')){
-    window.location.href = 'https://accounts.spotify.com/authorize?client_id=ccd748cf8756402593750b57a56d69df&response_type=token&redirect_uri=http://localhost:3000'
+    window.location.href = 'https://accounts.spotify.com/authorize?client_id=ccd748cf8756402593750b57a56d69df&response_type=token&redirect_uri=https://spotify-project-1c9d7.firebaseapp.com'
   }
 }
 
 export const removeTokenAndRedirect = () => {
   localStorage.removeItem('secure_token')
-  window.location.href = 'https://accounts.spotify.com/authorize?client_id=ccd748cf8756402593750b57a56d69df&response_type=token&redirect_uri=http://localhost:3000'
+  window.location.href = 'https://accounts.spotify.com/authorize?client_id=ccd748cf8756402593750b57a56d69df&response_type=token&redirect_uri=https://spotify-project-1c9d7.firebaseapp.com'
 }
