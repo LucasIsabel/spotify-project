@@ -5,6 +5,20 @@ import {bindActionCreators} from 'redux';
 import * as spotifyActions from '../../actions/spotifyAction';
 import {handleAuthentatication} from '../../helpers/functions';
 import {redirectIfNotLogged} from '../../helpers/functions';
+import {withStyles} from '@material-ui/core/styles';
+
+const style = {
+  root: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 400,
+    width: '100%'
+  },
+  welcome: {
+    fontSize: 50
+  }
+}
 
 class Main extends Component {
 
@@ -20,11 +34,11 @@ class Main extends Component {
   }
 
   render() {
-    const { isAuthorized } = this.props.spotify;
+    const { classes } = this.props;
     return (
-      <section>
-        <div>
-          {isAuthorized ? <div> What are you looing for </div> : <div> Please loggin </div>  } 
+      <section className={classes.root}>
+        <div className={classes.welcome}>
+           Comece sua busca.... :)
         </div>
       </section>
     )
@@ -38,4 +52,4 @@ const mapDispatchToProps = dispatch => ({
   }, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Main));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withStyles(style)(Main)));
