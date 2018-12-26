@@ -3,8 +3,10 @@ import {updateState} from '../helpers/functions';
 
 const initialState = {
   artists: [],
+  artistsAlbuns:[],
   isAuthorized: false,
-  authError: false
+  authError: false,
+  
 }
 
 export default (state = initialState, action) => {
@@ -21,7 +23,11 @@ export default (state = initialState, action) => {
       }
     case `${types.SEARCH_ARTIST}_REJECTED`: {
       return updateState(state, {authError: true})
-    }  
+      }
+    case `${types.ALBUMNS_BY_ID}_FULFILLED`:
+      {
+        return updateState(state, {artistsAlbuns: [...state.artistsAlbuns, ...payload.data.items]})
+      }   
     default:
       return state;
   }

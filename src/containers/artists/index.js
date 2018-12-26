@@ -49,6 +49,18 @@ class Main extends Component {
       .searchArtist(params.name);
   }
 
+  getAlbunsListFromId = (id) => {
+    const { 
+      artistsAlbuns
+     } = this.props.spotify;
+
+     let albuns = artistsAlbuns.filter((album) => {
+      return (album.artists.some((artist) => artist.id === id)) 
+     })
+     
+     return albuns;
+  }
+
   handleClick = state => () => {
     this.setState({ open: true, ...state });
   };
@@ -76,14 +88,16 @@ class Main extends Component {
             .spotify
             .artists
             .map((value) => {
-              console.log(value)
               return <Grid key={value.id} item xs={12} sm={6} md={4}>
                 <Paper className={classes.paper}>
-                  <Card 
+                  <Card
+                    artistId={value.id}
                     name={value.name}
                     image={value.images[0]}
                     genres={value.genres}
                     popularity={value.popularity}
+                    filteralbums={this.getAlbunsListFromId}
+                    getAlbunsById={this.props.actions.getAlbunsById}
                   />
                 </Paper>
               </Grid>

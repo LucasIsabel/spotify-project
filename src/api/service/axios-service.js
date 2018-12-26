@@ -10,4 +10,12 @@ export default class {
       }
     });
   };
+
+  async getAlbumsById(id){
+    return this.axios.get(`/artists/${id}/albums?include_groups=album`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('secure_token')}`
+      }
+    });
+  };
 }

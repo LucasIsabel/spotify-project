@@ -19,4 +19,11 @@ const updateLogin = () => {
   }
 }
 
-export {searchArtist, updateLogin}
+const getAlbunsById = (id) => {
+  return {
+    type: types.ALBUMNS_BY_ID,
+    payload: service.searchAlbumsById(id)
+  }
+}
+
+export {searchArtist, updateLogin, getAlbunsById}

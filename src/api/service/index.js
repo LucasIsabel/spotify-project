@@ -7,4 +7,8 @@ export default class {
     return this.axios.getArtist(name)
   }
 
+  async searchAlbumsById(id){
+    return this.axios.getAlbumsById(id)
+  }
+
 }

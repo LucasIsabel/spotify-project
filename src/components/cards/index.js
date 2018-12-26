@@ -12,6 +12,9 @@ import Typography from '@material-ui/core/Typography';
 import Collapse from '@material-ui/core/Collapse';
 import classnames from 'classnames';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
 const styles = theme => ({
   media: {
@@ -36,11 +39,20 @@ const styles = theme => ({
   },
   card: {
     cursor: 'pointer'
+  },
+  listRoot: {
+    width: '100%',
+    maxWidth: '360px',
+    backgroundColor: theme.palette.background.paper,
   }
 });
 
 class RecipeReviewCard extends React.Component {
-  state = { expanded: false };
+  state = { expanded: false, artistAlbuns: [] };
+
+  componentDidMount(){
+    this.props.getAlbunsById(this.props.artistId);
+  }
 
   handleExpandClick = () => {
     this.setState(state => ({ expanded: !state.expanded }));
@@ -71,8 +83,9 @@ class RecipeReviewCard extends React.Component {
   }
 
   render() {
+
     const { classes } = this.props;
-    console.log(this.props.popularity)
+    const albums = this.props.filteralbums(this.props.artistId).slice(0, 5);
 
     return (
       <Card className={classes.card}>
@@ -109,11 +122,17 @@ class RecipeReviewCard extends React.Component {
         </CardActions>
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <Typography paragraph>Method:</Typography>
-            <Typography paragraph>
-              Heat 1/2 cup of the broth in a pot until simmering, add saffron and set aside for 10
-              minutes.
-            </Typography>
+            <Typography paragraph>Albums:</Typography>
+            <List component="nav" className={classes.listRoot}>
+
+            </List>
+            {
+              albums.map((value) => {
+                return <ListItem key={value.id}>
+                         <ListItemText primary={value.name} />
+                      </ListItem>
+              })
+            }
           </CardContent>
         </Collapse>
       </Card>
