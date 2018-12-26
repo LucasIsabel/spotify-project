@@ -5,7 +5,9 @@ const favoriteArtists = localStorage.getItem('favoriteArtist') ? JSON.parse(loca
 
 const initialState = {
   artists: [],
+  albums: [],
   artistsAlbuns:[],
+  trackingAlbums:[],
   isAuthorized: false,
   authError: false,
   favoriteArtists
@@ -19,6 +21,10 @@ export default (state = initialState, action) => {
       {
         return updateState(state, {artists: payload.data.artists.items});
       }
+    case `${types.SEARCH_ALBUMNS}_FULFILLED`:
+      {
+        return updateState(state, {albums: payload.data.albums.items});
+      }
     case `${types.USER_LOGGED}`:
       {
         return updateState(state, {isAuthorized: payload});
@@ -26,9 +32,16 @@ export default (state = initialState, action) => {
     case `${types.SEARCH_ARTIST}_REJECTED`: {
       return updateState(state, {authError: true})
       }
+    case `${types.SEARCH_ALBUMNS}_REJECTED`: {
+        return updateState(state, {authError: true})
+        }
     case `${types.ALBUMNS_BY_ID}_FULFILLED`:
       {
         return updateState(state, {artistsAlbuns: [...state.artistsAlbuns, ...payload.data.items]})
+      }
+    case `${types.TRACKS_BY_ID}_FULFILLED`:
+      {
+        return updateState(state, {trackingAlbums: [...state.trackingAlbums, { albumId: payload.data.id, tracks: [...payload.data.tracks.items] }]})
       }
     case `${types.SET_FAVORITE}`:
       {

@@ -18,4 +18,20 @@ export default class {
       }
     });
   };
+
+  async getAlbums(name){
+    return this.axios.get(`/search?q=${name}&type=album`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('secure_token')}`
+      }
+    });
+  };
+
+  async getTracksById(id){
+    return this.axios.get(`/albums/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('secure_token')}`
+      }
+    });
+  }
 }

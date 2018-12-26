@@ -64,7 +64,7 @@ class SearchBar extends Component {
               <select name="select" className={classes.selectStyle} onChange={(event) => this.optionHandler(event)}>
                 <option value=""> &nbsp; </option>
                 <option value="artist">Artist</option>
-                <option value="Album">Album</option>
+                <option value="albums">Album</option>
                 <option value="Track">Track</option>
               </select>
             </Grid>

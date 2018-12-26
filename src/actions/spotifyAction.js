@@ -12,6 +12,15 @@ const searchArtist = (name) => {
   }
 }
 
+const searchAlbumns = (name) => {
+  return dispatch => {
+    return dispatch({
+      type: types.SEARCH_ALBUMNS,
+      payload: service.searchAlbums(name)
+    })
+  }
+}
+
 const updateLogin = () => {
   return {
     type: types.USER_LOGGED,
@@ -26,6 +35,13 @@ const getAlbunsById = (id) => {
   }
 }
 
+const getTrackById = (id) => {
+  return {
+    type: types.TRACKS_BY_ID,
+    payload: service.searchTracking(id)
+  }
+}
+
 const setFavoriteItem = (list) => {
   return {
     type: types.SET_FAVORITE,
@@ -33,4 +49,4 @@ const setFavoriteItem = (list) => {
   }
 }
 
-export {searchArtist, updateLogin, getAlbunsById, setFavoriteItem} 
+export {searchArtist, updateLogin, getAlbunsById, setFavoriteItem, searchAlbumns, getTrackById} 

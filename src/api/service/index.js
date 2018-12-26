@@ -11,4 +11,12 @@ export default class {
     return this.axios.getAlbumsById(id)
   }
 
+  async searchAlbums(name){
+    return this.axios.getAlbums(name)
+  }
+
+  async searchTracking(id){
+    return this.axios.getTracksById(id)
+  }
+
 }

@@ -44,6 +44,10 @@ const styles = theme => ({
     width: '100%',
     maxWidth: '360px',
     backgroundColor: theme.palette.background.paper,
+  },
+  colapseContent: {
+    height: 200,
+    overflowY: 'auto'
   }
 });
 
@@ -51,7 +55,7 @@ class RecipeReviewCard extends React.Component {
   state = { expanded: false };
 
   componentDidMount(){
-    this.props.getAlbunsById(this.props.artistId);
+    this.props.getTrackById(this.props.albumId);
   }
 
   handleExpandClick = () => {
@@ -77,35 +81,13 @@ class RecipeReviewCard extends React.Component {
     }
   }
 
-  selectPopulariry = (popularity) => {
-    const { color, text } = this.colorSelector(popularity);
-    return <Typography style={{
-      color,
-      fontWeight: 900 
-    }}> 
-     {
-       text
-     }
-    </Typography>
-  }
-
-  colorSelector = (popularity) => {
-    if (popularity >= 80) {
-      return {color: 'red', text: 'HOT'};
-    } else if (popularity >= 60 && popularity <= 79) {
-      return {color: 'blue', text: 'Cool'}
-    } else if (popularity >= 30 && popularity <= 59) {
-      return {color: '#ffbf00', text: 'Regular'}
-    } else {
-      return {color: 'black', text: 'Underground'}
-    }
-  }
-
   render() {
 
     const { classes } = this.props;
-    const albums = this.props.filteralbums(this.props.artistId).slice(0, 5);
-    const isFavorite = this.props.isFavorite(this.props.artistId);
+    const tracks = this.props.getTracks(this.props.albumId);
+    const isFavorite = this.props.isFavorite(this.props.albumId);
+
+    console.log(tracks);
 
     return (
       <Card className={classes.card}>
@@ -119,16 +101,16 @@ class RecipeReviewCard extends React.Component {
         />
         <CardContent>
           <Typography component="p">
-            {this.props.genres.toString()}
+            { 
+              this.props.artists.map((artist) => artist.name).toString()
+            }
           </Typography>
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
-          <IconButton aria-label="Add to favorites" onClick={() => this.storeFavoriteArtist(this.props.artistId)}>
+          <IconButton aria-label="Add to favorites" onClick={() => this.storeFavoriteArtist(this.props.albumId)}>
             {isFavorite ? <FavoriteIcon color={"error"} /> : <FavoriteIcon /> } 
           </IconButton>
-          {
-            this.selectPopulariry(this.props.popularity)
-          }
+          
           <IconButton
             className={classnames(classes.expand, {
               [classes.expandOpen]: this.state.expanded,
@@ -141,11 +123,11 @@ class RecipeReviewCard extends React.Component {
           </IconButton>
         </CardActions>
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
-          <CardContent>
-            <Typography paragraph>Albums:</Typography>
+        <CardContent className={classes.colapseContent}>
+            <Typography paragraph>Tracks:</Typography>
             <List component="nav" className={classes.listRoot}>
             {
-              albums.map((value) => {
+              tracks.map((value) => {
                 return <ListItem key={value.id}>
                          <ListItemText primary={value.name} />
                       </ListItem>
