@@ -1,7 +1,7 @@
 import React from 'react';
 import Enzyme, {shallow} from 'enzyme';
 import EnzymeAdapter from 'enzyme-adapter-react-16';
-import Cards from '../../../../components/cards';
+import Cards from '../../../../src/components/cards';
 
 Enzyme.configure({adapter: new EnzymeAdapter()});
 
@@ -11,4 +11,5 @@ describe('App Component', () => {
     expect(wrapper).toBeTruthy()
     console.log(wrapper.debug());
   })
+
 })
